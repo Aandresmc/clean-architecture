@@ -1,6 +1,5 @@
 import Typography from "@material-ui/core/Typography";
 
-
 type Props = {
     title: string
 };

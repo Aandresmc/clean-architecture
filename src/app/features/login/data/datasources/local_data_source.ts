@@ -1,11 +1,10 @@
 
 export interface ILocalDataSource {
-    request(key: string): Promise<any>
+    request(key: String): Promise<any>
 }
 
 class LocalDataSource implements ILocalDataSource {
-    async request(key: string): Promise<any> {
+    async request(key: String): Promise<any> {
         return '';
     }
-    // TODO: Implement datasource methods with specific dependencies
 }

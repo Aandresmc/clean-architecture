@@ -1,9 +1,7 @@
-
 import { AsyncContainerModule, interfaces } from 'inversify';
 
-import { HttpClient } from 'app/core/http/http-client';
+import { HttpClient } from '../http/http-client';
 import { AxiosHttpClient } from "../http";
-
 
 export const CoreModule = {
     providers: () => {

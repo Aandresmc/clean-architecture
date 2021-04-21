@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
 
-import { HttpClient } from "app/core/http/http-client";
+import { HttpClient } from "../../../../core/http/http-client";
 import { RemoteDataSource } from "../datasources/remote_data_source";
 
-import { ILogin } from "../../domain/entities/ilogin";
 import { ILoginRepository } from "../../domain/repositories/ilogin_repository";
 
-import generateUri, { PathUri } from "environments/path";
+import generateUri, { PathUri } from "../../../../../environments/path";
+import { ILogin } from "../../domain/entities/ilogin";
 
 @injectable()
 export class LoginRepository implements ILoginRepository {

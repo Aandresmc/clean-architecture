@@ -1,5 +1,5 @@
-import { TokenAuth } from "../../../domain/response/login-response";
+import { TokenAuth } from "../../../domain/entities/ilogin";
 
 export interface LoginStateTypes {
-    token: TokenAuth;
+  token: TokenAuth | null;
 }

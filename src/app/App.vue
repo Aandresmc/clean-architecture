@@ -3,14 +3,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-
+import { defineComponent } from "vue";
 import { containerBuilder } from "./app.container";
 
-@Options({
+export default defineComponent({
   async created() {
     await containerBuilder();
   },
-})
-export default class App extends Vue {}
+});
 </script>
+
+<style lang="scss">
+@import "@/app/shared/theme/app.scss";
+</style>

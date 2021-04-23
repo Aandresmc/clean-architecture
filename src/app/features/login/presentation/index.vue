@@ -1,42 +1,60 @@
 <template>
-  <div>
-    <input type="email" />
-    <input type="password" />
-    <button @click="context.handleSubmit">Iniciar Sesion</button>
-  </div>
+  <!-- <Form :onSubmit="handleSubmit"> -->
+  <Container>
+    <TitleComponent title="Iniciar Sesión" />
+    <FormComponent
+      :user="user"
+      :isLoading="isLoading"
+      :setValueField="handleInputChange"
+      :errors="errors"
+    />
+  </Container>
+  <!-- </Form> -->
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
-import { Options, setup, Vue } from "vue-class-component";
-import { useStore } from "../../../app.store";
-import { ILogin } from "../domain/entities/ilogin";
-import { LoginModuleTypes } from "./store/types";
+import { defineComponent, InputHTMLAttributes, reactive, ref } from "vue";
+import { TitleComponent, Container } from "@/app/shared/components";
+import { FormComponent } from "./components/";
 
-@Options({
-  created() {
-    console.log("entro a created");
+export type UserForm = {
+  email: string;
+  password: string;
+};
+
+type State = {
+  user: UserForm;
+  errors?: UserForm;
+  isLoading: boolean;
+};
+
+const _initialStateUser: UserForm = {
+  email: "",
+  password: "",
+};
+
+export default defineComponent({
+  components: {
+    TitleComponent,
+    Container,
+    FormComponent,
   },
-})
-export default class LoginPage extends Vue {
-  context = setup(() => {
-    const user = ref<ILogin.Params>({
-      email: "amora@gmail.com",
-      password: "12345678",
+  setup() {
+    const state = reactive<State>({
+      user: _initialStateUser,
+      isLoading: false,
+      errors: _initialStateUser,
     });
 
-    const store = useStore();
-
-    const handleSubmit = () => {
-      console.log("entro");
-      console.log(store.getters.token);
-      store.dispatch(LoginModuleTypes.ACTION_LOGIN, user);
+    const handleInputChange = (event: InputHTMLAttributes) => {
+      const { name, value } = event;
+      console.log(name, value);
     };
 
     return {
-      user,
-      handleSubmit,
+      ...state,
+      handleInputChange,
     };
-  });
-}
+  },
+});
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <h4>{{ title }}</h4>
+  <h4 class="title is-4">{{ title }}</h4>
 </template>
 
 <script lang="ts">

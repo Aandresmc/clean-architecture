@@ -1,21 +1,23 @@
 <template>
   <div class="field">
-    <p class="control">
+    <label class="label">{{ label }}</label>
+    <div class="control">
       <input
         class="input"
+        :class="error && 'is-danger'"
         :type="type"
         :placeholder="label"
         :value="value"
         :name="name"
         @input="onChange($event.target)"
       />
-      <span>error:{{ error }}</span>
-    </p>
+    </div>
+    <p class="help" :class="error && 'is-danger'">{{ error }}</p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, toRefs } from "vue";
 
 type inputsType = "text" | "email" | "password" | "number";
 
@@ -50,7 +52,7 @@ export default defineComponent({
   },
   setup(props) {
     return {
-      ...props,
+      ...toRefs(props),
     };
   },
 });

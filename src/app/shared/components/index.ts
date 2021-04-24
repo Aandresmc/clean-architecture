@@ -1,6 +1,6 @@
-import TitleComponent from "./title.vue";
-import Container from "./container.vue";
-
+import { TitleComponent } from "./title";
 import { ControlsComponent } from "./controls";
+import Container from "./container/index.vue";
+import Form from "./form/index.vue";
 
-export { TitleComponent, Container, ControlsComponent };
+export { TitleComponent, ControlsComponent, Container, Form };

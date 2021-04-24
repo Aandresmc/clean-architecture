@@ -1,58 +1,107 @@
 <template>
-  <!-- <Form :onSubmit="handleSubmit"> -->
-  <Container>
-    <TitleComponent title="Iniciar Sesión" />
-    <FormComponent
-      :user="user"
-      :isLoading="isLoading"
-      :setValueField="handleInputChange"
-      :errors="errors"
-    />
-  </Container>
-  <!-- </Form> -->
+  <Form :onSubmit="handleSubmit">
+    <Container>
+      <TitleH4Component title="Iniciar Sesión" />
+      <FormComponent
+        :user="values"
+        :isLoading="isLoading"
+        :setValueField="handleInputChange"
+        :errors="errors"
+      />
+    </Container>
+  </Form>
 </template>
 
 <script lang="ts">
-import { defineComponent, InputHTMLAttributes, reactive, ref } from "vue";
-import { TitleComponent, Container } from "@/app/shared/components";
+import { defineComponent } from "vue";
+import { Container, Form, TitleComponent, useForm } from "@/app/shared";
 import { FormComponent } from "./components/";
+import { LoginModuleTypes } from "./store/types";
+import { validators } from "./validators";
+import { useStore } from "@/app/app.store";
+const { TitleH4Component } = TitleComponent;
 
 export type UserForm = {
   email: string;
   password: string;
 };
 
-type State = {
-  user: UserForm;
-  errors?: UserForm;
-  isLoading: boolean;
-};
-
-const _initialStateUser: UserForm = {
+const initialValues: UserForm = {
   email: "",
   password: "",
 };
 
 export default defineComponent({
   components: {
-    TitleComponent,
     Container,
+    Form,
+    TitleH4Component,
     FormComponent,
   },
   setup() {
-    const state = reactive<State>({
-      user: _initialStateUser,
-      isLoading: false,
-      errors: _initialStateUser,
-    });
+    const store = useStore();
 
-    const handleInputChange = (event: InputHTMLAttributes) => {
-      const { name, value } = event;
-      console.log(name, value);
+    const validate = (fieldValue: UserForm = values) => {
+      let formErrors = { ...errors } as UserForm;
+
+      if ("email" in fieldValue)
+        formErrors.email = validators.email(fieldValue.email);
+
+      if ("password" in fieldValue)
+        formErrors.password = validators.password(fieldValue.password);
+
+      setErrors({
+        ...formErrors,
+      });
+
+      //submit form , set value form to fields
+      if (fieldValue === values) {
+        let formValid = Object.values(formErrors).every(
+          (errorField) => errorField === ""
+        );
+        return formValid;
+      }
+    };
+
+    const {
+      values,
+      isLoading,
+      setLoading,
+      errors,
+      setErrors,
+      handleInputChange,
+      resetForm,
+    } = useForm({ initialValues, validateOnChange: true, validate });
+
+    const handleSubmit = async (event: Event): Promise<void> => {
+      event.preventDefault();
+      try {
+        if (validate()) {
+          await sendRequest();
+        }
+      } catch (error) {
+        console.log(error);
+
+        // setState({
+        //     ...state,
+        //     mainError: error.message,
+        //     isLoading: false,
+        // });
+      }
+    };
+
+    const sendRequest = async () => {
+      setLoading(true);
+      const token = await store.dispatch(LoginModuleTypes.ACTION_LOGIN, values);
+      setLoading(false);
+      resetForm();
     };
 
     return {
-      ...state,
+      values,
+      isLoading,
+      errors,
+      handleSubmit,
       handleInputChange,
     };
   },

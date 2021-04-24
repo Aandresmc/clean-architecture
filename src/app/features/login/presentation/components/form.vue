@@ -18,14 +18,18 @@
       :error="errors.password"
     />
 
-    <ButtonSubmitComponent :isLoading="isLoading" class="btn-form" />
+    <ButtonSubmitComponent
+      class="btn-form"
+      :isLoading="isLoading"
+      label="Iniciar Sesión"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { UserForm } from "@/app/features/login/presentation/index.vue";
 import { ControlsComponent } from "@/app/shared/components";
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, toRefs } from "vue";
 const { InputComponent, ButtonSubmitComponent } = ControlsComponent;
 
 export default defineComponent({
@@ -53,7 +57,7 @@ export default defineComponent({
   },
   setup(props) {
     return {
-      ...props,
+      ...toRefs(props),
     };
   },
 });

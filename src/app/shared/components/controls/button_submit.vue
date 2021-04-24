@@ -1,13 +1,19 @@
 <template>
   <div class="field">
     <p class="control">
-      <button class="button is-primary">Iniciar Sesion {{ isLoading }}</button>
+      <button
+        class="button is-primary"
+        :class="isLoading && 'is-loading'"
+        type="submit"
+      >
+        {{ label }}
+      </button>
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, toRefs } from "vue";
 
 export default defineComponent({
   name: "ButtonSubmitComponent",
@@ -15,12 +21,15 @@ export default defineComponent({
     isLoading: {
       type: Boolean,
       required: true,
-      default: false,
+    },
+    label: {
+      type: String,
+      requited: true,
     },
   },
   setup(props) {
     return {
-      ...props,
+      ...toRefs(props),
     };
   },
 });

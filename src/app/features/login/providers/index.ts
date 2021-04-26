@@ -4,7 +4,7 @@ import { HttpClient } from '../../../core/http/http-client';
 import { UseCase } from '../../../core/use-case';
 import { ILoginRepository } from '../domain/repositories/ilogin_repository';
 import { LoginRepository } from '../data/repositories/login_repository';
-import { LoginUseCase } from '../domain/uses-cases/login_usecase';
+import { LoginUseCase } from '../domain/usecases/login_usecase';
 import { ILogin } from '../domain/entities/ilogin';
 
 

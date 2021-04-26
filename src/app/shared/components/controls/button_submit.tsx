@@ -6,15 +6,16 @@ import styled from 'styled-components';
 
 
 type Props = {
-  isLoading: boolean
+  isLoading: boolean,
+  label: string
 };
 
 const StyledButton = styled(({ ...props }) => (
   <Button  {...props} variant="contained" color="primary" data-testid="submit" type="submit">
-    {props.disabled ? <CircularProgress size={30} color="inherit"/> : "Ingresar"}
+    {props.disabled ? <CircularProgress size={30} color="inherit" /> : props.label}
   </Button>
 ))`
     margin-top: 24px;
   `;
 
-export const ButtonSubmitComponent: React.FC<Props> = ({ isLoading }: Props) => <StyledButton disabled={isLoading} />;
+export const ButtonSubmitComponent: React.FC<Props> = ({ isLoading , label }: Props) => <StyledButton disabled={isLoading} label={label} />;

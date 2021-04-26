@@ -23,7 +23,7 @@ export const FormComponent: React.FC<Props> = ({ user, isLoading, errors, setVal
             <InputComponent label='Contraseña' name='password'
                 onChange={setValueField} type='password' value={user.password} error={errors.password} />
 
-            <ButtonSubmitComponent isLoading={isLoading} />
+            <ButtonSubmitComponent isLoading={isLoading} label='Iniciar Sesión' />
         </>
     );
 };

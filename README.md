@@ -1,4 +1,7 @@
-# clean-architecture
+# Vue 3 App
+
+## With Vuex TS , Composition API,  Inversify and Managing Multiple Environments
+## Framework CSS - Bulma
 
 ## Project setup
 ```

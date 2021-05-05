@@ -1,0 +1,25 @@
+<div fxLayout fxFlex="1 1 30%">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" [formGroup]="group">
+        <h3>INGRESE SUS CREDENCIALES</h3>
+        <div class="credenciales" fxLayout="column">
+            <mat-form-field appearance="outline">
+                <mat-label>Correo</mat-label>
+                <input type="text" matInput required formControlName="correo" />
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error *ngIf="group.get('correo')?.hasError('required')">El correo es obligatorio</mat-error>
+                <mat-error *ngIf="group.get('correo')?.hasError('email')">Debe tener formato de correo</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput required formControlName="password" />
+                <mat-icon matSuffix>lock</mat-icon>
+                <mat-error>La contraseña es obligatoria</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="credenciales" fxLayout="column">
+            <button type="button" mat-raised-button color="primary" (click)="login()" [disabled]="group.invalid">
+                INGRESAR
+            </button>
+        </div>
+    </form>
+</div>

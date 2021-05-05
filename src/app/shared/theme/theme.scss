@@ -1,0 +1,29 @@
+@import "~@angular/material/theming";
+@import "colors";
+
+/* CUSTOM FONTS */
+@font-face {
+  font-family: Corisande-Bold;
+  src: url("assets/fonts/Corisande-Bold_0.ttf");
+}
+@font-face {
+  font-family: Corisande-Light;
+  src: url("assets/fonts/Corisande Light_0.ttf");
+}
+
+$custom-typography: mat-typography-config(
+  $font-family: Corisande-Light,
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500),
+);
+@include mat-base-typography($custom-typography);
+@include mat-checkbox-typography($custom-typography);
+@include angular-material-typography($custom-typography);
+@include mat-core($custom-typography);
+
+/* CUSTOM COLORS */
+@include mat-core();
+$primary: mat-palette($custom-primary-color);
+$accent: mat-palette($custom-accent-color);
+$theme: mat-light-theme($primary, $accent);
+@include angular-material-theme($theme);
